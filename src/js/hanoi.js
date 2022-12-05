@@ -246,8 +246,29 @@ export default class TowersOfHanoi {
         await _delay;
 
         // if valid execute
-        if (this.validateMove(from, to)) this.towers[to].push(this.towers[from].pop());
+        if (this.validateMove(from, to)) {
+            const floorToMove = this.towers[from].pop();     
+            this.towers[to].push(floorToMove);
+            console.log(`Move Floor ${floorToMove} from Tower[${this.getTowerName(from)}] to Tower[${this.getTowerName(to)}]`);
+        }
 
         this.drawFloors();
+    }
+
+    getTowerName(index) {
+        let name;
+        switch (index) {
+            case 0:
+                name = 'A';
+                break;
+            case 1:
+                name = 'B';
+                break;
+            case 2:
+                name = 'C';
+                break;
+        }
+
+        return name
     }
 }
