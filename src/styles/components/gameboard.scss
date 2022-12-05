@@ -1,0 +1,186 @@
+.game-board {
+    flex-grow: 1;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    // gap: 4rem;
+    // display: flex;
+    // align-items: flex-end;
+    // justify-content: space-between;
+    gap: 1rem;
+    width: 100%;
+    height: 100%;
+    // border: 2px solid hsl(0, 0%, 90%);
+
+    // tower main container
+    .tower {
+        position: relative;
+        display: flex;
+        width: 250px;
+
+        > *:not(.tower-inner) {
+            pointer-events: none;
+        }
+
+        .base {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 50px;
+            background-color: hsl(0, 0%, 75%);
+            border-radius: 100%;
+            box-shadow: 
+                0 3px 0 0 hsl(0, 0%, 50%),
+                0 6px 0 0 hsl(0, 0%, 50%),
+                0 9px 0 0 hsl(0, 0%, 50%),
+                0 12px 0 0 hsl(0, 0%, 50%),
+                0 15px 0 0 hsl(0, 0%, 50%),
+                0 18px 0 0 hsl(0, 0%, 50%),
+                0 21px 10px 5px hsl(0, 0%, 0%);
+        }
+        .pole {
+            position: absolute;
+            bottom: 25px; // half of the height of the base
+            left: 50%;
+            translate: -50%;
+            width: 20px;
+            height: 250px;
+            background-color: hsl(0, 0%, 75%);
+            box-shadow: 0 2px 8px 0 hsla(0, 0%, 25%, 0.5);
+
+            // top
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                translate: 0 -50%;
+                width: 100%;
+                height: 6px;
+                background-color: hsl(0, 0%, 65%);
+                border-radius: 100%;
+            }
+            // bottom
+            &::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                translate: 0 50%;
+                width: 100%;
+                height: 6px;
+                background-color: hsl(0, 0%, 75%);
+                border-radius: 100%;
+            }
+        }
+    }
+
+    // floors/chips
+    .tower-inner {
+        position: relative;
+        display: flex;
+        align-items: center;
+        flex-direction: column-reverse;
+        width: 100%;
+        // margin-bottom: 30px;
+        z-index: 10;
+        cursor: pointer;
+
+        li {
+            position: absolute;
+            height: 40px;
+            border-radius: 100%;
+            pointer-events: none;
+
+            // pole illustion
+            &::before {
+                content: '';
+                position: absolute;
+                bottom: 25px;
+                left: 50%;
+                translate: -50%;
+                width: 20px;
+                height: 16px;
+                background-color: hsl(0, 0%, 75%);
+                box-shadow: 0 8px 10px -3px hsla(0, 0%, 25%, 0.5);
+            }
+            &::after {
+                content: '';
+                position: absolute;
+                bottom: 25px;
+                left: 50%;
+                translate: -50% 50%;
+                width: 20px;
+                height: 8px;
+                background-color: hsl(0, 0%, 75%);
+                border-radius: 100%;
+            }
+
+           
+            
+
+            // position
+            // here i use nth child instead of data-floor coz its the position you dumbass
+            --flr-position: 20px;
+
+            @for $i from 1 through 8 {
+                &:nth-child(#{$i}) {
+                    bottom: calc(var(--flr-position) * $i);
+                }
+            }
+
+            // un-nest this later coz i want the floors to exist outside the ul
+            --flr-width-decrement: 20px;
+            $floors: (
+                1: hsl(0, 60%, 50%),
+                2: hsl(44, 83%, 56%),
+                3: hsl(96, 72%, 56%),
+                4: hsl(162, 72%, 56%),
+                5: hsl(219, 72%, 56%),
+                6: hsl(273, 72%, 56%),
+                7: hsl(315, 72%, 56%),
+                8: hsl(24, 72%, 56%),
+            );
+            @for $i from 1 through 8 {
+                &[data-floor="#{$i}"] {
+                    z-index: calc(10 + #{$i});
+                    width: calc(250px - var(--flr-width-decrement) * $i);
+                    // height: calc(45px - #{$i}px);
+                    background-color: map-get($map: $floors, $key: $i);
+                    box-shadow: 
+                        0 3px 0 0 darken(map-get($map: $floors, $key: $i), 15%),
+                        0 6px 0 0 darken(map-get($map: $floors, $key: $i), 15%),
+                        0 9px 0 0 darken(map-get($map: $floors, $key: $i), 15%),
+                        0 12px 0 0 darken(map-get($map: $floors, $key: $i), 15%),
+                        0 15px 5px 0 hsla(0, 0%, 0%, 0.75);
+                }
+            }
+
+
+            &.picked {
+                
+                animation: pickedFloor 1s infinite;
+            }
+        }
+    }
+}
+
+
+@keyframes pickedFloor {
+    from {
+        background-color: hsl(0, 0%, 25%);
+        box-shadow: 
+                0 3px 0 0 darken(hsl(0, 0%, 25%), 15%),
+                0 6px 0 0 darken(hsl(0, 0%, 25%), 15%),
+                0 9px 0 0 darken(hsl(0, 0%, 25%), 15%),
+                0 12px 0 0 darken(hsl(0, 0%, 25%), 15%),
+                0 15px 5px 0 hsla(0, 0%, 0%, 0.75);
+    }
+    to {
+        background-color: hsl(0, 0%, 75%);
+        box-shadow: 
+                0 3px 0 0 darken(hsl(0, 0%, 75%), 15%),
+                0 6px 0 0 darken(hsl(0, 0%, 75%), 15%),
+                0 9px 0 0 darken(hsl(0, 0%, 75%), 15%),
+                0 12px 0 0 darken(hsl(0, 0%, 75%), 15%),
+                0 15px 5px 0 hsla(0, 0%, 0%, 0.75);
+    }
+}
