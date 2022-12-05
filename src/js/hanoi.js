@@ -256,19 +256,6 @@ export default class TowersOfHanoi {
     }
 
     getTowerName(index) {
-        let name;
-        switch (index) {
-            case 0:
-                name = 'A';
-                break;
-            case 1:
-                name = 'B';
-                break;
-            case 2:
-                name = 'C';
-                break;
-        }
-
-        return name
+        return (index == 0) ? 'A' : (index == 1) ? 'B' : 'C';
     }
 }

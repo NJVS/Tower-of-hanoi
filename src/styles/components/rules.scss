@@ -1,0 +1,69 @@
+.rules-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: hsla(0, 0%, 0%, 0.5);
+    z-index: 9999;
+
+    opacity: 0;
+    visibility: hidden;
+
+    .rules-inner {
+        padding: 1rem 1.5rem;
+        background: radial-gradient(ellipse at top, hsl(214, 47%, 23%), hsl(237, 49%, 15%));
+        border: 2px solid hsl(0, 0%, 90%);
+        border-radius: 5px;
+
+        opacity: 0;
+        visibility: hidden;
+
+        > div {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+
+            > svg {
+                width: 15px;
+                fill: hsl(0, 0%, 90%);
+                pointer-events: none;
+            }
+        }
+
+        h2 {
+            font-size: 2.25rem;
+        }
+
+        ol {
+            padding: 0 1.25rem;
+            
+            li {
+                margin-bottom: 0.825rem;
+                font-size: 1.125rem;
+            }
+        }
+    }
+
+
+    &.show {
+        opacity: 1;
+        visibility: visible;
+        transition: all 0.4s ease;
+
+
+        .rules-inner {
+            opacity: 1;
+            visibility: visible;
+            transition: all 0.4s ease 0.4s;
+        }
+    }
+}

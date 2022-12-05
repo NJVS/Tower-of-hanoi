@@ -40,14 +40,18 @@ header {
         }
     }
 
+    // settings
     > .settings {
         position: absolute;
         bottom: -2px;
         left: calc(100% + 0.375rem);
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
         z-index: 99;
         // translate: 0 -100%;
         
-        button.trigger {
+        > button {
             --c-fill: hsl(0, 0%, 60%);
             display: flex;
             align-items: center;
@@ -69,10 +73,6 @@ header {
 
             &:hover {
                 --c-fill: hsl(0, 0%, 90%);
-
-                svg {
-                    rotate: 90deg;
-                }
             } 
 
             &.active {
