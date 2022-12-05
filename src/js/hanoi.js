@@ -158,6 +158,15 @@ export default class TowersOfHanoi {
         this.initGameFunction();
     }
 
+    disableGame() {
+        this.towerElements.forEach(towerElement => {
+            towerElement.removeEventListener('click', this.towerClickHandlerFunction);
+        });
+        this.floorSettings.removeEventListener('click', this.floorSettingsHandlerFunction);
+        this.resetGame.removeEventListener('click', this.initGameFunction);
+        this.solveGame.removeEventListener('click', this.solveGameHandlerFunction);
+    }
+
 
 
     
@@ -190,6 +199,8 @@ export default class TowersOfHanoi {
     }
 
     displayAlert(msg) {
+        this.disableGame();
+
         const container = document.createElement('div');
         container.className = 'alert';
         container.innerHTML = `
@@ -197,8 +208,10 @@ export default class TowersOfHanoi {
             <button class="alert_close">close</button>
         `;
 
-        container.querySelector('.alert_close').addEventListener('click', e => container.remove());
-        container.querySelector('.alert_close').focus();
+        container.querySelector('.alert_close').addEventListener('click', e => {
+            container.remove()
+            this.initSettings();
+        });
         document.querySelector('main').append(container);
     }
 
@@ -209,6 +222,8 @@ export default class TowersOfHanoi {
     ////////////////////////
 
     solveGameHandler() {
+        this.disableGame();
+
         const solved = this.solve(this.floorCount, 0, 1, 2);
 
         solved.then(() => this.displayAlert('Auto solve complete!'));
