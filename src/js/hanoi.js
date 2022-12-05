@@ -18,6 +18,7 @@ export default class TowersOfHanoi {
         this.initGameFunction = this.initGame.bind(this);
         this.towerClickHandlerFunction = this.towerClickHandler.bind(this);
         this.floorSettingsHandlerFunction = this.floorSettingsHandler.bind(this);
+        this.solveGameHandlerFunction = this.solveGameHandler.bind(this);
     }
 
     initGame() {
@@ -68,7 +69,8 @@ export default class TowersOfHanoi {
         // console.log(targetTowerIndex);
 
         if (!validMove) {
-            this.displayAlert('Invalid move');
+            if (validMove !== undefined) this.displayAlert('Invalid move');
+            
             this.pickedTower = null;
             return false;
         }
@@ -76,7 +78,7 @@ export default class TowersOfHanoi {
         this.executeFloorMove(this.pickedTower, targetTowerIndex);
 
         if (this.isSolved()) {
-            alert(`YOU MANAGE TO COMPLETE ${this.floorCount} floors of tower of hanoi in just ${this.moves} moves`);
+            this.displayAlert(`YOU MANAGE TO COMPLETE ${this.floorCount} floors of tower of hanoi in just ${this.moves} moves`);
         }
     }
 
@@ -143,6 +145,7 @@ export default class TowersOfHanoi {
     initSettings() {
         this.floorSettings.addEventListener('click', this.floorSettingsHandlerFunction);
         this.resetGame.addEventListener('click', this.initGameFunction);
+        this.solveGame.addEventListener('click', this.solveGameHandlerFunction);
     }
 
     floorSettingsHandler(event) {
@@ -195,6 +198,43 @@ export default class TowersOfHanoi {
         `;
 
         container.querySelector('.alert_close').addEventListener('click', e => container.remove());
+        container.querySelector('.alert_close').focus();
         document.querySelector('main').append(container);
+    }
+
+
+
+    ////////////////////////
+    /// HELL STARTS HERE ///
+    ////////////////////////
+
+    solveGameHandler() {
+        let solved;
+
+        solved = this.solve(this.floorCount, 0, 1, 2);
+
+        solved.then(() => this.displayAlert('Auto solve complete!'));
+    }
+
+    async solve(N, t_from, t_aux, t_to) {
+        if (N === 1) {
+            await this.executeFloorMoveByAI(t_from, t_to, 500);
+        } else {
+            await this.solve(N - 1, t_from, t_to, t_aux);
+            await this.solve(1, t_from, t_aux, t_to);
+            await this.solve(N - 1, t_aux, t_from, t_to)
+        }
+        return this.isSolved();
+    }
+
+    async executeFloorMoveByAI(from, to, delay) {
+        // wait for delay
+        const _delay = new Promise(resolve => setTimeout(resolve, delay));
+        await _delay;
+
+        // if valid execute
+        if (this.validateMove(from, to)) this.towers[to].push(this.towers[from].pop());
+
+        this.drawFloors();
     }
 }
