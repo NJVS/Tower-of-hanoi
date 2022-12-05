@@ -427,6 +427,37 @@ header > .settings .opt .input-group > *:last-child {
     box-shadow: 0 3px 0 0 #999999, 0 6px 0 0 #999999, 0 9px 0 0 #999999, 0 12px 0 0 #999999, 0 15px 5px 0 hsla(0deg, 0%, 0%, 0.75);
   }
 }
+.alert {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  padding: 1.25rem 1rem 0.875rem;
+  width: 350px;
+  background: radial-gradient(ellipse at top, hsl(214deg, 47%, 23%), hsl(237deg, 49%, 15%));
+  border: 2px solid hsl(0deg, 0%, 90%);
+  border-radius: 5px;
+  z-index: 999;
+}
+.alert .alert_body {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+.alert .alert_close {
+  align-self: flex-end;
+  padding: 0.25rem 1rem;
+  background-color: transparent;
+  border: 2px solid hsl(0deg, 0%, 90%);
+  border-radius: 5px;
+  color: hsl(0deg, 0%, 90%);
+  font-size: 0.825rem;
+  cursor: pointer;
+}
+
 body {
   display: grid;
   place-items: center;

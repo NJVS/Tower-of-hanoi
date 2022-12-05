@@ -68,7 +68,7 @@ export default class TowersOfHanoi {
         // console.log(targetTowerIndex);
 
         if (!validMove) {
-            alert('invalid move');
+            this.displayAlert('Invalid move');
             this.pickedTower = null;
             return false;
         }
@@ -187,6 +187,14 @@ export default class TowersOfHanoi {
     }
 
     displayAlert(msg) {
-        
+        const container = document.createElement('div');
+        container.className = 'alert';
+        container.innerHTML = `
+            <h3 class="alert_body">${msg}</h3>
+            <button class="alert_close">close</button>
+        `;
+
+        container.querySelector('.alert_close').addEventListener('click', e => container.remove());
+        document.querySelector('main').append(container);
     }
 }
