@@ -209,9 +209,7 @@ export default class TowersOfHanoi {
     ////////////////////////
 
     solveGameHandler() {
-        let solved;
-
-        solved = this.solve(this.floorCount, 0, 1, 2);
+        const solved = this.solve(this.floorCount, 0, 1, 2);
 
         solved.then(() => this.displayAlert('Auto solve complete!'));
     }
