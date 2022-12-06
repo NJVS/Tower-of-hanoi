@@ -1,3 +1,4 @@
+import "../styles/main.css";
 import Hanoi from './hanoi.js';
 
 document.addEventListener('DOMContentLoaded', () => {

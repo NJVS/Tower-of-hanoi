@@ -1,0 +1,33 @@
+{
+  "name": "hanoi",
+  "version": "1.0.0",
+  "description": "A simple tower of hanoi game with auto solve function using recursion.\r [Live Demo](https://njvs.githuib.io/Tower-of-hanoi)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack build",
+    "deploy": "gh-pages -d dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NJVS/Tower-of-hanoi.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NJVS/Tower-of-hanoi/issues"
+  },
+  "homepage": "https://NJVS.github.io/Tower-of-hanoi",
+  "devDependencies": {
+    "css-loader": "^6.7.2",
+    "html-loader": "^4.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
+  },
+  "dependencies": {
+    "gh-pages": "^4.0.0"
+  }
+}
